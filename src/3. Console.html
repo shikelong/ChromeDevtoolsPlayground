@@ -43,10 +43,78 @@
   <div class="card">
     <div class="card-header">Run JavaScript</div>
     <div class="card-body">
-      <p>Console 是一个 REPL (Read–eval–print loop), also termed an <b>interactive toplevel</b> or <b>language shell</b> 
-        它读取您键入的JavaScript，评估代码，打印出表达式的结果，然后循环回到第一步。</p>
-      <p>Console 可以访问对应 Page 的 Window 对象</p>
-      
+      <ul class="list-group">
+        <li class="list-group-item">
+          Console 是一个 REPL (Read–eval–print loop), also termed an <b>interactive toplevel</b> or <b>language shell</b> 
+        它读取您键入的JavaScript，评估代码，打印出表达式的结果，然后循环回到第一步。
+        </li>
+        <li class="list-group-item">
+          Console 可以访问对应 Page 的 Window 对象
+        </li>
+        <li class="list-group-item">使用 Live Expression 进行实时监听 <input class="form-control mt1em" onchange="liveExpressionChanged(event)" style="width: 300px" /></li>
+        <li class="list-group-item">清理 Console: <code>CTRL+L</code> / <code>console.clear()</code> </li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-header"><a target="_blank" href="https://developers.google.com/web/tools/chrome-devtools/console/api"> Console API</a> </div>
+    <div class="card-body">
+      <div class="alert alert-warning">注意：可以在代码中调用 但是要注意兼容性</div>
+      <ul class="list-group list-group-flush">
+        <li class="list-group-item">
+          <span class="badge badge-warning">Warning</span>
+          <code>console.warn</code>
+        </li>
+        <li class="list-group-item">
+          <span class="badge badge-danger">Error</span>
+          <code>console.error</code>
+        </li>
+        <li class="list-group-item">
+          <span class="badge badge-info">Info</span>
+          <code>console.log / console.info</code>
+        </li>
+        <li class="list-group-item">
+          <span class="badge badge-light">Verbose</span>
+          <code>console.debug</code>
+        </li>
+        <li class="list-group-item"></li>
+
+        <li class="list-group-item">
+          <span class="badge badge-info">Info</span>
+          <code>console.dir / console.dirxml</code>
+        </li>
+        <li class="list-group-item">
+          <span class="badge badge-danger">Error</span>
+          <code>console.assert</code> 用来进行断言 
+        </li>
+        <li class="list-group-item">
+          <span class="badge badge-info">Info</span>
+          <code>console.count([label]) console.countReset([label])</code>
+        </li>
+        <li class="list-group-item">
+          <span class="badge badge-info">Info</span>
+          <code>console.trace</code>
+        </li>
+        <li class="list-group-item">
+          <code>console.clear</code>
+          <i>If Preserve Log is enabled, <code>console.clear()</code> is disabled.</i>
+        </li>
+        <li class="list-group-item"></li>
+        
+        <li class="list-group-item">
+          <span class="badge badge-info">Info</span>
+          <code>console.group(label) / console.groupEnd(label) / console.groupCollapsed(label)</code>
+        </li>
+        <li class="list-group-item">
+          <span class="badge badge-info">Info</span>
+          <code>console.table(array)</code>
+        </li>
+        <li class="list-group-item">
+          <span class="badge badge-info">Info</span>
+          <code>console.time([label]) / console.timeLog([label]) / console.timeEnd([label]) </code>
+        </li>
+      </ul>
     </div>
   </div>
 
@@ -56,14 +124,45 @@
       <div class="alert alert-danger">注意：只能在 Console 中调用这些 API, 不能在你的 Script 中调用</div>
       <ul class="list-group">
         <li class="list-group-item">
-          <code>$, $0 ~ $4</code>
+          <code>$_, $, $0 ~ $4, $$, $x</code>
+          <p>$ 看起来和 Jquery类似，实际上是 document.querySelector的简写, 语法 <code>$([selector], startNode)</code></p>
         </li>
         <li class="list-group-item">
           inspect：
-          <code>inspect(document.querySelector("#errorUl > li:last-of-type"))</code>
+          <code>inspect(document.querySelector("body > div:nth-child(3) > div.card-body > ul > li:nth-child(3) > input"))</code>
+        </li>
+        <li class="list-group-item">
+          调试相关：
+          <br/>
+          <code>debug(fn), undebug(fn)</code>
+          <br/>
+          <code>monitor(fn), unmonitor(fn)</code>
+          <br/>
+          <code>monitorEvents(object, [types]), unmonitorEvents(object, [types])</code>
+        </li>
+        <li class="list-group-item">
+          <code>queryObjects(Constructor)</code>
+        </li>
+        <li class="list-group-item">
+          Console API的简写形式：
+          <code>clear(), dir(), dirxml(), table()</code>
+        </li>
+        <li class="list-group-item">
+          其他：
+          <br />
+          <code>copy()</code>
+          <br />
+          <code>profile([name]) / profileEnd([name])</code>
         </li>
       </ul>
     </div>
   </div>
+
+  <script>
+    var _liveExpression = 1;
+    function liveExpressionChanged(event){
+      _liveExpression = event.target.value;
+    }
+  </script>
 </body>
 </html>

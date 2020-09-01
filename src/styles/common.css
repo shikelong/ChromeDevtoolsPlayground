@@ -33,3 +33,7 @@ section.group {
 .mb1em {
   margin-bottom: 1em;
 }
+
+.useless {
+  color: red;
+}

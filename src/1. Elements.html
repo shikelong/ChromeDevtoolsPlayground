@@ -94,7 +94,8 @@
           <i>可以看到 DOM Node自身的监听器和其上级节点的监听器</i>
           <br />
           <div id="eventListenerContainer">
-            <button id="btnEventListener">Click Me</button>
+            <button class="btn btn-primary" id="btnEventListener">Click Me</button>
+            <button class="btn btn-primary" id="btnEventListenerJq">Bind event handler with Jq</button>
           </div>
         </li>
         
@@ -120,6 +121,10 @@
       document.querySelector('#btnEventListener').addEventListener('click', (e) => {
         console.log('clicked btn: ', e);
       });
+
+      $('#btnEventListenerJq').on('click', (e) => {
+        console.log('clicked btn2: ', e);
+      })
     })();
 
   </script>
