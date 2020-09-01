@@ -22,13 +22,36 @@
     <h1 class="groupTitle">Console</h1>
     <div class="card">
       <div class="card-body">
-        
+        Console 面板主要的功能可以显示 Log 信息, 运行 JavaScript, Console 面板可以以专有模式单独显示或者以抽屉模式和其他面板一起使用。
       </div>
     </div>
   </header>
+  
 
   <div class="card">
-    <div class="card-header"><a target="_blank" href="https://developers.google.com/web/tools/chrome-devtools/console/utilities"> Console UtilitiesUtilities API</a> </div>
+    <div class="card-header">Log Messages</div>
+    <div class="card-body">
+      <p>控制台中除了使用 <code>Console API</code> 显式输出的 Log Message, 也包含了浏览器在执行页面代码时遇到的network error,未捕获的异常以及其他信息。</p>
+      <p>可以对Console中的Message进行多种形式的过滤 —— 来源, 级别, 正则 etc.</p>
+      <p>可以自动折叠Message, 或者对每条Message显示TimeStamp, 可以勾选 Preserve Log来保留页面跳转、刷新前后的 Log</p>
+    </div>
+    <div class="card-footer">
+      <a href="https://devtools.glitch.me/console/log.html" target="_blank">Demo</a>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-header">Run JavaScript</div>
+    <div class="card-body">
+      <p>Console 是一个 REPL (Read–eval–print loop), also termed an <b>interactive toplevel</b> or <b>language shell</b> 
+        它读取您键入的JavaScript，评估代码，打印出表达式的结果，然后循环回到第一步。</p>
+      <p>Console 可以访问对应 Page 的 Window 对象</p>
+      
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-header"><a target="_blank" href="https://developers.google.com/web/tools/chrome-devtools/console/utilities"> Console Utilities API</a> </div>
     <div class="card-body">
       <div class="alert alert-danger">注意：只能在 Console 中调用这些 API, 不能在你的 Script 中调用</div>
       <ul class="list-group">
