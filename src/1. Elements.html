@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Elements</title>
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"
+    integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
+  <link rel="stylesheet" href="./styles/common.css">
+  <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js" integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN" crossorigin="anonymous"></script>
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js" integrity="sha384-B4gt1jrGC7Jh4AgTPSdUtOBvfO8shuf57BaghqFfPlYxofvL8/KUEfYiJOMMV+rV" crossorigin="anonymous"></script>
+</head>
+
+<body class="container">
+  <header>
+    <nav aria-label="breadcrumb">
+      <ol class="breadcrumb">
+        <li class="breadcrumb-item"><a href="../index.html">Home</a></li>
+        <li class="breadcrumb-item active" aria-current="page">Element</li>
+      </ol>
+    </nav>
+    <h1 class="groupTitle">Element</h1>
+    <div class="card">
+      <div class="card-body">
+        使用 Element 面板可以操作 DOM 和 CSS
+      </div>
+    </div>
+  </header>
+
+  <div class="card">
+    <div class="card-header">Element 面板反应的是实时的, 实际的 DOM 结构 —— eg. 错误的标签会经过浏览器自动修正</div>
+    <div class="card-body">
+      Error Html Tag：
+      <ul id="errorUl">
+        <li>Default Item</li>
+        </ulError>
+    </div>
+    <div class="card-footer">
+      <button class="btn btn-primary" onclick="appendItemToUl('#errorUl')">Append Item to errorUL</button>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-header">基本 DOM 操作</div>
+    <div class="card-body">
+      <ul class="list-group">
+        <li class="list-group-item">右键Inspect 或者 先打开Devtools再Inspect</li>
+        <li class="list-group-item">可以新增, 编辑，复制，移动 DOM结构</li>
+        <li class="list-group-item">可以隐藏/显示 DOM 节点</li>
+        <li class="list-group-item">搜索：支持按字符串，Selector, XPath 进行搜索  
+          <br/>
+          <br/>
+          eg.  <code>#errorUl > li:last-of-type</code>
+        </li>
+        <li class="list-group-item">可以 Focus/ScrollIntoView 到某个DOM 节点
+          <br/>
+          <br/>
+          <input class="form-control" style="width: 300px;" type="text" value="Hello World">
+        </li>
+        <li class="list-group-item">ForceState  
+          <br/>
+          <br/>
+          eg.  <a href="https://www.baidu.com" target="_blank">Baidu</a>
+        </li>
+        <li class="list-group-item">可以Copy Selector/JS Path/Style/XPathXPath</li>
+        <li class="list-group-item">Breakon DOM Change
+          <div class="alert alert-info mt1em" role="alert">
+            在调试 DropdownList / Tooltip 等动态结构的时候会很有用
+          </div>
+        </li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-header">Style/CSS相关</div>
+    <div class="card-body">
+      <ul class="list-group">
+        <li class="list-group-item">Styles 面板查看样式 - 注意几种不同的来源：UA / Inherited / CSS Selector / Inline Style</li>
+        <li class="list-group-item">Styles 面板也可以进行 ForceState, 添加 class, 唤起 ColorPicker(新版支持对图片取色) etc.</li>
+        <li class="list-group-item">Computed 面板查看样式的计算值和盒模型， 同时也可修改盒模型和查看计算值的来源和属性的覆盖情况。</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-header">其他</div>
+    <div class="card-body">
+      <ul class="list-group">
+        <li class="list-group-item">通过 EventListeners 面板查看DOM Node的事件监听器 (等价于 <code>getEventListeners</code> Command Line API)
+          <br />
+          <i>可以看到 DOM Node自身的监听器和其上级节点的监听器</i>
+          <br />
+          <div id="eventListenerContainer">
+            <button id="btnEventListener">Click Me</button>
+          </div>
+        </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+
+  <script>
+    function appendItemToUl(id) {
+      var item = document.createElement("li");
+      item.innerHTML = Math.random();
+
+      document.querySelector(id).append(item);
+    }
+
+    (function(){
+      document.querySelector('#eventListenerContainer').addEventListener('click', (e) => {
+        console.log('clicked: ', e);
+      });
+
+      document.querySelector('#btnEventListener').addEventListener('click', (e) => {
+        console.log('clicked btn: ', e);
+      });
+    })();
+
+  </script>
+
+</body>
+
+</html>
