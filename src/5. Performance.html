@@ -22,9 +22,53 @@
     <h1 class="groupTitle">Performance</h1>
     <div class="card">
       <div class="card-body">
-        
+        之前的版本此面板叫 Timeline Panel, 使用此面板可以通过记录和查看网站生命周期内发生的各种事件来提高页面的运行时性能。
+        <br>
+        <br>
+        <a href="https://googlechrome.github.io/devtools-samples/jank/">devtools-samples</a>
       </div>
     </div>
   </header>
+
+  <div class="card">
+    <div class="card-header">注意事项</div>
+    <div class="card-body">
+      <ul class="list-group">
+        <li class="list-group-item">确保在干净的环境下进行性能评估, 比如在隐身模式运行网页，避免扩展的影响</li>
+        <li class="list-group-item">可以模拟更慢的CPU来模拟网站在低性能设备下的使用体验</li>
+        <li class="list-group-item">进行Performance Record 的网页通常比不进行 Performance Record的网页要慢</li>
+        <li class="list-group-item">可以导入或者导出 Pefermance Profile, 也可以做多次记录进行切换。进行记录前可以手动进行垃圾回收。</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-header">基本功能</div>
+    <div class="card-body">
+      <ul class="list-group">
+        <li class="list-group-item">使用FPS快速定位渲染性能 —— 寻找 Junk，即长时间的Frame. 性能上佳的网页应该趋近于 60FPS 刷新率</li>
+        <li class="list-group-item">通过 CPU 视图查看是否 CPU占用率过高</li>
+        <li class="list-group-item">也可以同时记录 Screenshots, 更直观的观察各个阶段网页的展示形态</li>
+        <li class="list-group-item">可以勾选 Memory 选项，同步记录内存信息， 这个选项主要会记录 JS Heap的大小推移</li>
+        <li class="list-group-item">可以通过Summary来查看时间窗口内各种任务占用的CPU时间</li>
+        <li class="list-group-item">在Main中可以看到在当前页面主线程(渲染线程)上各个事件/任务的耗时和调用堆栈</li>
+        <li class="list-group-item">注意下方的几个选项卡—— Bottom Up(查看耗时最多的活动), Call Tree(查看哪个根活动导致了最多的消耗), Event Log(按发生时间查看活动)</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-header">其他</div>
+    <div class="card-body">
+      <ul class="list-group">
+        <li class="list-group-item">使用 Rendering</li>
+        <li class="list-group-item">使用 Performance monitor进行监视</li>
+        <li class="list-group-item">
+          对JS/CSS进行性能调优的常见做法 <a href="https://developers.google.com/web/tools/chrome-devtools/rendering-tools">rendering-tools</a>
+        </li>
+      </ul>
+    </div>
+  </div>
+
 </body>
 </html>
