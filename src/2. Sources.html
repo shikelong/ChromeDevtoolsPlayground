@@ -22,9 +22,128 @@
     <h1 class="groupTitle">Sources</h1>
     <div class="card">
       <div class="card-body">
-        
+        在源代码面板中设置断点来<b>调试</b> JavaScript ，或者通过Workspaces（工作区）连接本地文件来使用开发者工具的实时编辑器。
+        Sources 面板支持多种类型的断点。也可以对压缩后的代码进行格式化处理。
       </div>
     </div>
   </header>
+
+  <div class="card">
+    <div class="card-header">调试和断点</div>
+    <div class="card-body">
+      <ul class="list-group">
+        <li class="list-group-item">
+          <b>Source的调试功能简介</b>
+          (吐槽：我觉得尚有不足的一点是不支持类似于VS一样的回退执行)
+          <br/>
+          <p class="mt1em">
+            基本的Step Over, Step in, Step out, 查看 local/global作用域变量,查看闭包变量和this, watch, 临时屏蔽断点等功能都是支持的。
+          </p>
+        </li>
+        <li class="list-group-item">
+          普通断点(Line-of-code)：在确切的代码区域可以使用此断点
+          可以在代码中以 <code>debugger</code> 来达到类似的目的。
+        </li>
+        <li class="list-group-item">
+          条件断点：在确切的代码区域中，且仅当其他一些条件成立时。
+        </li>
+        <li class="list-group-item">
+          DOM断点：在更改或移除特定 DOM 节点或其子级的代码中。
+          <hr>
+          <p>
+            Subtree modifications： 在移除或添加当前所选节点的子级，或更改子级内容时触发这类断点。 在子级节点属性发生变化或对当前所选节点进行任何更改时不会触发这类断点。<br>
+            Attributes modifications：在当前所选节点上添加或移除属性，或属性值发生变化时触发这类断点。<br>
+            Node Removal：在移除当前选定的节点时会触发。
+          </p>
+        </li>
+        <li class="list-group-item">
+          XHR/Fetch：当 XHR/Fetch 请求的网址包含特定字符串的时候
+        </li>
+        <li class="list-group-item">
+          事件监听器断点： 在触发特定事件的时候
+        </li>
+        <li class="list-group-item">
+          异常断点：发生了已捕获或者未捕获的异常的时候
+        </li>
+        <li class="list-group-item">
+          函数断点：调用特定函数的时候。
+        </li>
+      </ul>
+    </div>
+    <div class="card-footer">
+      <button class="btn btn-primary" onclick="debugTest(event)">Debug Test</button>
+      <button class="btn btn-danger" onclick="throwAnException(event)">Throw An Exception</button>
+      <button class="btn btn-danger" onclick="throwAnCaughtException(event)">Throw A Caught Exception</button>
+      <button class="btn btn-primary" onclick="fetchBaidu(event)">Fetch Baidu</button>
+      <button class="btn btn-primary" onclick="getSum(event)">Get Sum</button>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-header">其他功能</div>
+    <div class="card-body">
+      <ul class="list-group">
+        <li class="list-group-item">
+          WorkSpace : 正常情况下在Sources中对JS等资源进行的修改是临时的，通过设置工作区，可以让在Chrome Devtools中进行的修改持久化到磁盘上。
+          <div class="alert alert-info mt1em">需要注意一些限制：对Element面板来说，不会保留对DOM的更改, 只保留对外部引用的CSS的修改，不会保留对内联样式的更改。
+             —— 可以在Source中对HTML, Inline Style进行更改。</div>
+        </li>
+        <li class="list-group-item">
+          Snippets: 可以使用 Snippets 功能进行代码片段的管理, 避免在Console中重复输入代码, 可以使用 !snippets_name 的形式在Chrome命令面板中直接运行特定 Sinppets
+          同样, Snippets 也可以访问特定页面的上下文。
+        </li>
+      </ul>
+    </div>
+    <div class="card-footer">
+      <button class="btn btn-danger" onclick="throwAnException(event)">Throw An Exception</button>
+      <button class="btn btn-danger" onclick="throwAnCaughtException(event)">Throw A Caught Exception</button>
+      <button class="btn btn-primary" onclick="fetchBaidu(event)">Fetch Baidu</button>
+      <button class="btn btn-primary" onclick="getSum(event)">Get Sum</button>
+    </div>
+  </div>
+
+  <script>
+    function throwAnException(){
+      throw new Error("error 1");
+    }
+
+    function throwAnCaughtException(){
+      try {
+        throw new Error("error 2");
+      } catch (error) {
+        
+      }
+    }
+
+    function fetchBaidu(){
+      fetch("https://www.baidu.com");
+    }
+
+    function getSum(){
+      let sum = 0;
+      for(var i = 0; i < 10; i++){
+        sum += i;
+      }
+      console.log('sum inner: ', sum);
+      return sum;
+    }
+
+    function add(a){
+      return function(b){
+        return a + b;
+      }
+    }
+
+    function debugTest(){
+      var sum = getSum();
+
+      var add1 = add(1);
+      var three = add1(2);
+
+
+      console.log('sum outter: ', sum);
+    }
+
+  </script>
 </body>
 </html>
