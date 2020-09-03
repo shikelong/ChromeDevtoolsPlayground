@@ -22,9 +22,47 @@
     <h1 class="groupTitle">Network</h1>
     <div class="card">
       <div class="card-body">
-        
+        通过此面板查看和调试网络活动
+        <br>
+        <br>
+        <a href="https://devtools.glitch.me/network/getstarted.html" target="_blank">Network DEMO</a>
       </div>
     </div>
+
+    <div class="card">
+      <div class="card-header">基本功能</div>
+      <div class="card-body">
+        <ul class="list-group">
+          <li class="list-group-item">记录并查看网络活动, 按条件过滤网络活动</li>
+          <li class="list-group-item">记录并查看网络活动的明细信息</li>
+          <li class="list-group-item">Block 特定的网络请求或者特定Domain的网络请求</li>
+          <li class="list-group-item">网络速度模拟/截图/强制缓存失效/保留跨页面请求记录</li>
+          <li class="list-group-item">可以对XHR类型的请求进行<a href="https://www.w3schools.com/xml/tryit.asp?filename=tryajax_first" target="_blank">重放</a></li>
+          <li class="list-group-item">将请求/响应数据复制到剪贴板</li>
+          <li class="list-group-item">查看请求来源</li>
+          <li class="list-group-item">查看加载事件,查看请求数,查看总下载大小(压缩后),查看请求的未压缩大小</li>
+          <li class="list-group-item">进行高级过滤：<code>method, status-code, larger-than, domain</code> 等等</li>
+          <li class="list-group-item"><a href="https://developers.google.com/web/tools/chrome-devtools/network/issues" target="_blank">常见网络问题排查</a></li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="card-header">单个请求的不同阶段</div>
+      <div class="card-body">
+        <ul class="list-group">
+          <li class="list-group-item">Queueing 排队阶段, 排队原因： 优先级, http1.0/1.1 TCP连接<=6, 浏览器正在磁盘缓存中短暂分配空间 </li>
+          <li class="list-group-item">Stalled 停滞阶段：该请求可能由于“ 排队”中描述的任何原因而停止。</li>
+          <li class="list-group-item">(Optional) 代理协商： 它表示代理服务器连接协商所用的时间</li>
+          <li class="list-group-item">DNS查找：解析请求对应的IP地址</li>
+          <li class="list-group-item">初始化连接： TCP握手, SSL协商</li>
+          <li class="list-group-item">Request Sent: 网络进程准备请求数据，并进行发送。这个阶段通常很快。</li>
+          <li class="list-group-item">Waiting(TTFB/Time to first byte) 此时间包括一次往返延迟和服务器准备响应所花费的时间。</li>
+          <li class="list-group-item">Content Download</li>
+        </ul>
+      </div>
+    </div>
+
   </header>
 </body>
 </html>
