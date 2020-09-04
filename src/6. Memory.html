@@ -1,16 +1,24 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Memory</title>
   <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"
-  integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
-<link rel="stylesheet" href="./styles/common.css">
-<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
-<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js" integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN" crossorigin="anonymous"></script>
-<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js" integrity="sha384-B4gt1jrGC7Jh4AgTPSdUtOBvfO8shuf57BaghqFfPlYxofvL8/KUEfYiJOMMV+rV" crossorigin="anonymous"></script>
+    integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
+  <link rel="stylesheet" href="./styles/common.css">
+  <!-- <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"
+    integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj"
+    crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"
+    integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN"
+    crossorigin="anonymous"></script>
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"
+    integrity="sha384-B4gt1jrGC7Jh4AgTPSdUtOBvfO8shuf57BaghqFfPlYxofvL8/KUEfYiJOMMV+rV"
+    crossorigin="anonymous"></script> -->
 </head>
+
 <body class="container">
   <header>
     <nav aria-label="breadcrumb">
@@ -22,9 +30,84 @@
     <h1 class="groupTitle">Memory</h1>
     <div class="card">
       <div class="card-body">
-        
+        在老版本这个面板叫做 Profiles, 用来分析内存使用情况并追踪泄露。
+        除了使用 Memory 分析页面的内存使用情况，也可以先使用 Performance, Chrome Task Manager等其他方式比较粗略的获取页面的内存占用。
       </div>
     </div>
   </header>
+
+  <div class="card">
+    <div class="card-header">基本功能</div>
+    <div class="card-body">
+      <ul class="list-group">
+        <li class="list-group-item">使用Heap Snapshots收集和显示JS对象和相关的DOM Nodes的内存分配情况。可以收集多个Heap Snapshots进行对比，或者查看汇总信息。</li>
+        <li class="list-group-item">使用allocation instrumentation on timeline(分配时间表) 查看随着时间推移，发生的内存分配情况。从而从中找出可能的内存泄露的情况。</li>
+        <li class="list-group-item">使用allocation sampling (内存信息采样) 此方法的性能开销最小，可以用于长时操作。</li>
+        <li class="list-group-item">扩展阅读 <a href="https://developers.google.com/web/tools/chrome-devtools/memory-problems/memory-101" target="_blank">Understand Memory Terminology</a></li>
+      </ul>
+    </div>
+    <div class="card-footer">
+      <button class="btn btn-primary" id="generateStr">GenerateStr</button>
+      <button class="btn btn-primary" id="appendToBody">Append Div Nodes to Body</button>
+      <button class="btn btn-primary" id="detachedNodes">Create Detached Nodes</button>
+      <button class="btn btn-primary" id="recursive">recursive</button>
+      <button class="btn btn-success" id="release">Release Detached Nodes</button>
+    </div>
+  </div>
+  <script>
+
+    var x = [];
+
+    function generateString(){
+      var randomNumber = Math.random();
+      console.log('random number: ', randomNumber)
+      x.push(randomNumber.toString().repeat(1000000));
+    }
+
+    function grow() {
+      console.log('grow was called');
+      for (var i = 0; i < 10000; i++) {
+        document.body.appendChild(document.createElement('div'));
+      }
+      //generateString();
+    }
+
+    var detachedTree;
+    function createDetachedNodes() {
+      console.log('createDetachedNodes was called');
+      var ul = document.createElement('ul');
+      for (var i = 0; i < 1000; i++) {
+        var li = document.createElement('li');
+        ul.appendChild(li);
+      }
+      detachedTree = ul;
+    }
+
+    function release(){
+      detachedTree = null;
+    }
+
+    function recursive(res, count){
+      if (count <= 0) {
+        console.log('result: ', res);
+        return;
+      };
+      var resultTemp = recursive(res + "0", count - 1);
+      return resultTemp;
+    }
+    
+
+    window.onload = function () {
+      document.getElementById('appendToBody').addEventListener('click', grow);
+      document.getElementById('generateStr').addEventListener('click', generateString);
+      document.getElementById('detachedNodes').addEventListener('click', createDetachedNodes);
+      document.getElementById('release').addEventListener('click', release);
+      document.getElementById('recursive').addEventListener('click', function(){
+        recursive("", 5000);
+      });
+    }
+
+  </script>
 </body>
+
 </html>
